@@ -15,21 +15,37 @@
 
 */
 #include <iostream>
+#include <map>
 #include <vector>
 using namespace std;
 
 class Solution {
 public:
-    vector<int> twoSum(vector<int>& nums, int target) {
-        
-    }
+		static vector<int> TwoSum(vector<int>& numbers,const int target)
+		{
+			map<int, int> answers;
+			auto key = 0;
+			for (auto index = 0;index < numbers.size();++index)
+			{
+				key = target - numbers.at(index);
+				if (answers.find(key) != answers.end())
+				{
+					vector<int> callBack;
+					callBack.emplace_back(index);
+					callBack.emplace_back(answers[key]);
+					return callBack;
+				}
+				answers[numbers.at(index)] = index;
+			}
+			return vector<int>();
+		}
 };
 
 int main()
 {
-  Solution solution;
-  vector<int> call={2,4,5,9};
-  for(auto it : solution.twoSum(call,7))
-    cout << it << " ";
-  return 0;
+	Solution solution;
+	vector<int>m={ 2, 3, 7, 9, 10 };
+	for (auto num : solution.TwoSum(m, 9))
+		cout << num << " ";
+	return 0;
 }
